@@ -8,7 +8,6 @@ import SignIn from './components/pages/SignIn'
 import UserPage from'./components/pages/UserPage'
 import Home from'./components/pages/Home'
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

@@ -1,8 +1,11 @@
+import API from'../API/API'
 
 function SignIn() {
-    
+    const data  = API()
+    console.log("API",data)
     return (
       <main className="main bg-dark">
+     
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>
