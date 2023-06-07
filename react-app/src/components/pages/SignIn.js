@@ -1,5 +1,8 @@
 import API from'../API/API'
 import { useReducer } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faCircleUser}from'@fortawesome/free-solid-svg-icons'
 
 function SignInReducer(state, action){
   if(action.type ==='valideUserName'){
@@ -7,14 +10,14 @@ function SignInReducer(state, action){
     if(action.payload === "tony@stark.com"){
        return {...state,UserNameCorrect : true}
     }
-    else return state
+    else return {...state,ErrorMsg :''}
   }
   if(action.type ==='validePassWord'){
     console.log('validePassWord',action.payload)
     if(action.payload === "password123"){
       return {...state,PassWordCorrect : true}
     }
-    else return state
+    else return {...state,ErrorMsg :''}
   }
   if(action.type ==='selectCheckBox'){
     console.log(state.Selected)
@@ -27,7 +30,7 @@ function SignInReducer(state, action){
 }
 
 function SignIn() {
-    
+    const navigate = useNavigate()
     const [state, dispatch] = useReducer(SignInReducer,{
       UserNameCorrect : false,
       PassWordCorrect : false,
@@ -39,18 +42,16 @@ function SignIn() {
 
     const handleSubmit = (e)=>{
     e.preventDefault();
-    if(UserNameCorrect || PassWordCorrect || Selected){
-
+    if(UserNameCorrect && PassWordCorrect && Selected){
+     navigate('/user/Tony')
     }
-    
     else dispatch({type :"setErrorMsg"})
     }
 
     return (
       <main className="main bg-dark">
-     
       <section className="sign-in-content">
-        <i className="fa fa-user-circle sign-in-icon"></i>
+       <FontAwesomeIcon icon={faCircleUser} className='sign-in-icon'/>
         <h1>Sign In</h1>
         <form onSubmit = {handleSubmit}>
           <div className="input-wrapper">
@@ -74,7 +75,8 @@ function SignIn() {
             <label>Remember me</label>
           </div>
           <button className="sign-in-button" >Sign In</button>
-          <p>{ErrorMsg}</p>
+          {
+          <p className='Error_Messages'>{ErrorMsg}</p>}
         </form>
       </section>
     </main>

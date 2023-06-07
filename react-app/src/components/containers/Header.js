@@ -1,13 +1,23 @@
 import Logo from'../../asserts/img/argentBankLogo.png'
 import { Link } from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faCircleUser,faRightFromBracket}from'@fortawesome/free-solid-svg-icons'
 
-function Header(userName){
+function Header(){
+const { pathname } = useLocation();
+let firstName
+if (pathname.includes('/user')){
+  
+ firstName = pathname.match('[^/]+(?!.*/)')[0]
+ console.log("include",firstName)
+}
+else firstName = null
+
 return (
-true ?
+!firstName ?
 <nav className="main-nav">
       <Link to ='/' className="main-nav-logo" >
-    
-
         <img
           className="main-nav-logo-image"
           src={Logo}
@@ -17,30 +27,30 @@ true ?
      </Link>
       <div>
         <Link to ='/signin' className="main-nav-item">
-          <i className="fa fa-user-circle"></i>
+        <FontAwesomeIcon icon={faCircleUser} />
           Sign In
         </Link>
       </div>
     </nav>
     :
     <nav className="main-nav">
-      <a className="main-nav-logo" href="./index.html">
+    <Link to ='/' className="main-nav-logo" >
         <img
           className="main-nav-logo-image"
-          src="./img/argentBankLogo.png"
+          src={Logo}
           alt="Argent Bank Logo"
         />
         <h1 className="sr-only">Argent Bank</h1>
-      </a>
+      </Link>
       <div>
         <a className="main-nav-item" href="./user.html">
-          <i className="fa fa-user-circle"></i>
-          {userName}
+        <FontAwesomeIcon icon={faCircleUser}/>
+          {firstName}
         </a>
-        <a className="main-nav-item" href="./index.html">
-          <i classNameName="fa fa-sign-out"></i>
+        <Link to='/'className="main-nav-item">
+        <FontAwesomeIcon icon={faRightFromBracket} />
           Sign Out
-        </a>
+        </Link>
       </div>
     </nav>
 )

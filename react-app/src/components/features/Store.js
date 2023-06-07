@@ -28,16 +28,34 @@ const subMit = () =>({ type : "subMit"})
 
 //Reducer
 
-const loginReducer =(state = false, action) =>{
-    if(action.type === "subMit" ){
-     return !state
+function SignInReducer(state, action){
+    if(action.type ==='valideUserName'){
+      console.log("valideUserName",action.payload)
+      if(action.payload === "tony@stark.com"){
+         return {...state,UserNameCorrect : true}
+      }
+      else return {...state,ErrorMsg :''}
     }
-    return state
-};
+    if(action.type ==='validePassWord'){
+      console.log('validePassWord',action.payload)
+      if(action.payload === "password123"){
+        return {...state,PassWordCorrect : true}
+      }
+      else return {...state,ErrorMsg :''}
+    }
+    if(action.type ==='selectCheckBox'){
+      console.log(state.Selected)
+      return {...state, Selected:!state.Selected}
+    }
+    if(action.type ==='setErrorMsg'){
+      return {...state, ErrorMsg:'Please confirm your email and password'}
+    }
+  
+  }
 
 export const store = configureStore({
     reducer: {
-      todos: '',
+      signIn: 'SignInReducer',
       filters: 'filtersReducer',
     }
 })

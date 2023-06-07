@@ -1,5 +1,8 @@
-function UserPage(){
+import { useParams } from "react-router-dom"
 
+function UserPage(){
+    const firstName = useParams()
+    console.log(firstName)
     return(
     <main className="main bg-dark">
         <div className="header">

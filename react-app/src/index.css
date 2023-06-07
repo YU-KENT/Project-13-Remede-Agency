@@ -34,7 +34,12 @@ body {
   width: 1px !important;
   white-space: nowrap !important; /* 3 */
 }
-
+.Error_Messages{
+  font-size: 14px;
+  color: red;
+  line-height: 14px;
+  text-align: start;
+}
 .main-nav {
   display: flex;
   justify-content: space-between;
@@ -289,3 +294,4 @@ body {
     width: 200px;
   }
 }
+
