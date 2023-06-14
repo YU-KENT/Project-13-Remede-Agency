@@ -7,10 +7,9 @@ import {faCircleUser,faRightFromBracket}from'@fortawesome/free-solid-svg-icons'
 function Header(){
 const { pathname } = useLocation();
 let firstName
-if (pathname.includes('/user')){
-  
+if (pathname.includes('/user') || pathname.includes('/profile')){ 
  firstName = pathname.match('[^/]+(?!.*/)')[0]
- console.log("include",firstName)
+
 }
 else firstName = null
 

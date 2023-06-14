@@ -1,13 +1,17 @@
 import { useParams } from "react-router-dom"
+import { Link } from 'react-router-dom'
 
 function UserPage(){
-    const firstName = useParams()
+    const firstName = useParams().firstName
+    const profilePath = '/profile/'+firstName
     console.log(firstName)
     return(
     <main className="main bg-dark">
         <div className="header">
             <h1>Welcome back<br />Tony Jarvis!</h1>
-            <button className="edit-button">Edit Name</button>
+            <Link to = {profilePath}>
+            <button className="edit-button" >Edit Name</button>
+            </Link>
         </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">

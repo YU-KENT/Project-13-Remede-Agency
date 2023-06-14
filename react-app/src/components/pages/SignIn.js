@@ -1,51 +1,60 @@
-import API from'../API/API'
-import { useReducer } from 'react'
+import { useDispatch, useSelector  } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCircleUser}from'@fortawesome/free-solid-svg-icons'
+import {loginState} from '../../outils/selector'
+import * as logninActions from '../../features/loginReducer'
+import services from'../../API/service'
 
-function SignInReducer(state, action){
-  if(action.type ==='valideUserName'){
-    console.log("valideUserName",action.payload)
-    if(action.payload === "tony@stark.com"){
-       return {...state,UserNameCorrect : true}
+const login = (UserEmail,PassWord,loginStatus) =>{
+  if(!loginStatus){
+  return services.loginPost(UserEmail,PassWord)
+  .then(function (response) {
+    if(response.status === 200){
+      return /* encodeURIComponent( */response.data.body.token
     }
-    else return {...state,ErrorMsg :''}
-  }
-  if(action.type ==='validePassWord'){
-    console.log('validePassWord',action.payload)
-    if(action.payload === "password123"){
-      return {...state,PassWordCorrect : true}
-    }
-    else return {...state,ErrorMsg :''}
-  }
-  if(action.type ==='selectCheckBox'){
-    console.log(state.Selected)
-    return {...state, Selected:!state.Selected}
-  }
-  if(action.type ==='setErrorMsg'){
-    return {...state, ErrorMsg:'Please confirm your email and password'}
-  }
-
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  
+}  else return
 }
 
-function SignIn() {
-    const navigate = useNavigate()
-    const [state, dispatch] = useReducer(SignInReducer,{
-      UserNameCorrect : false,
-      PassWordCorrect : false,
-      Selected : false,
-      ErrorMsg :''
-    })
-    const{UserNameCorrect,PassWordCorrect,Selected,ErrorMsg} = state
-    console.log("state",state)
-
-    const handleSubmit = (e)=>{
-    e.preventDefault();
-    if(UserNameCorrect && PassWordCorrect && Selected){
-     navigate('/user/Tony')
+const getUser = (Token)=>{
+  console.log("getUser--------------")
+  return services.profilePost(Token)
+  .then(function (response) {
+    console.log("avant 200")
+    if(response.status === 200){
+      console.log("getUser",response)
+      return response.data
     }
-    else dispatch({type :"setErrorMsg"})
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+
+}
+function SignIn() {
+    const dispatch = useDispatch() 
+    const navigate = useNavigate()
+    const state = useSelector(loginState)
+ 
+    const{UserEmail,PassWord,Selected,ErrorMsg,loginStatus,accessToken} = state
+    console.log("state",state)
+  
+    const handleSubmit = async (e)=>{
+    e.preventDefault();
+    if (Selected){
+    const accessToken = await login(UserEmail,PassWord,loginStatus)
+    console.log("uu____accessToken",accessToken)
+    dispatch(logninActions.setAccessToken(accessToken))
+    const data = await getUser(accessToken)
+    console.log(data)
+    }
+    else dispatch(logninActions.setErrorMsg() )
     }
 
     return (
@@ -56,22 +65,20 @@ function SignIn() {
         <form onSubmit = {handleSubmit}>
           <div className="input-wrapper">
             <label htmlFor='username' >Username</label>
-            <input type="text" id="username" onChange={(e)=> dispatch({
-              type :"valideUserName",
-              payload: e.target.value,
-            })} />
+            <input type="text" id="username" onChange={(e)=> dispatch(
+              logninActions.valideUserEmail(e.target.value)
+            )} />
           </div>
           <div className="input-wrapper">
             <label htmlFor='password' >Password</label>
-            <input type="password" id="password" onChange={(e)=> dispatch({
-              type :"validePassWord",
-              payload: e.target.value,
-            })} />
+            <input type="password" id="password" onChange={(e)=> dispatch(
+              logninActions.validePassWord(e.target.value)
+            )} />
           </div>
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" onClick={()=> dispatch({
-              type :"selectCheckBox"
-            })} />
+            <input type="checkbox" id="remember-me" onClick={()=> dispatch(
+              logninActions.selectCheckBox()
+            )} />
             <label>Remember me</label>
           </div>
           <button className="sign-in-button" >Sign In</button>

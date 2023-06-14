@@ -14,13 +14,20 @@ body {
 }
 
 .main {
-  flex: 1;
+  display:flex;
+  flex-direction: column;
+  height: 680px;
 }
 
 .bg-dark {
   background-color: #12002b;
 }
-
+.bg-gris{
+  background-color: #dfe1e9;
+}
+.profile-title{
+  color:#514f4f
+}
 .sr-only {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
@@ -104,7 +111,18 @@ body {
   margin-bottom: 0;
   font-size: 0.9rem;
 }
-
+.form-editName{
+  justify-content: center;
+  display: flex;
+}
+.input-edit{
+  width:200px;
+  margin-right: 10px;
+}
+.input-edit::placeholder{
+  color:#f9f8f8;
+  font-size: 10px;
+}
 @media (min-width: 920px) {
   .hero {
     height: 400px;
@@ -280,6 +298,10 @@ body {
   background-color: #00bc77;
   color: #fff;
 }
+.button-profile{
+  border-color: #5f5bd1;
+  background-color: #5f5bd1;
+}
 
 @media (min-width: 720px) {
   .account {
@@ -295,3 +317,11 @@ body {
   }
 }
 
+.edit-profile-button{
+  width:120px;
+  border-color: #9778f3;
+  background-color: white;
+  color: #9778f3;
+  margin-right: 10px;
+
+}
