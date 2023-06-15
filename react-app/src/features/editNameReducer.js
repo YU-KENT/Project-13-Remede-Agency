@@ -16,7 +16,6 @@ reducers :{
       payload:{value}
     }), 
     reducer:(state,action)=>{
-      console.log("FirstName",action.payload.value)
       return {...state, firstName:action.payload.value}
     }
   },
@@ -26,7 +25,6 @@ reducers :{
       payload:{value}
     }), 
     reducer:(state,action)=>{
-      console.log("FirstName",action.payload.value)
       return {...state, lastName:action.payload.value}
     }
   },
@@ -35,7 +33,6 @@ reducers :{
       payload:{value}
     }),  
     reducer:(state,action)=>{
-    console.log("editFirstName",action.payload.value)
     return {...state, firstNameInstant:action.payload.value}
   }
   } ,
@@ -44,8 +41,6 @@ reducers :{
       payload:{value}
     }),
     reducer:(state,action) =>{
-    console.log('editLastName',action.payload.value)
-   
     return {...state, lastNameInstant:action.payload.value}
 
   }},

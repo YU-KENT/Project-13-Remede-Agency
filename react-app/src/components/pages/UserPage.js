@@ -9,7 +9,7 @@ function UserPage(){
 
     const state = useSelector(userNameState)
     const{firstName,lastName} = state
-    console.log("firstName",firstName,"lastName",lastName)
+    console.log("userNameState------",state)
     return(
     <main className="main bg-dark">
         <div className="header">

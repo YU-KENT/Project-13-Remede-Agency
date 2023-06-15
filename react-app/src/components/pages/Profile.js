@@ -19,10 +19,10 @@ function Profile (){
     lastNameRef.current.value =""
     }
 
+    
     const editNamePost = (firstName, lastName,accessToken)=>{
     console.log("editNamePost",firstName, lastName,)
     services.profileEditPut(firstName, lastName,accessToken)
-
     }
     return(
         <main className="main bg-gris">

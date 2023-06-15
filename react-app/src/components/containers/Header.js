@@ -9,50 +9,50 @@ import * as editNameActions from'../../features/editNameReducer'
 
 
 function Header(){
-const NameState = useSelector(userNameState)
-const {firstName} = NameState
-const dispatch = useDispatch()
+  const NameState = useSelector(userNameState)
+  const {firstName} = NameState
+  const dispatch = useDispatch()
 
-return (
-!firstName ?
-<nav className="main-nav">
-      <Link to ='/' className="main-nav-logo" >
-        <img
-          className="main-nav-logo-image"
-          src={Logo}
-          alt="Argent Bank Logo"
-        />
-        <h1 className="sr-only">Argent Bank</h1>
-     </Link>
-      <div>
-        <Link to ='/signin' className="main-nav-item">
-        <FontAwesomeIcon icon={faCircleUser} />
-          Sign In
-        </Link>
-      </div>
-    </nav>
-    :
-    <nav className="main-nav">
-    <Link to ='/' className="main-nav-logo" >
-        <img
-          className="main-nav-logo-image"
-          src={Logo}
-          alt="Argent Bank Logo"
-        />
-        <h1 className="sr-only">Argent Bank</h1>
+  return (
+  !firstName ?
+  <nav className="main-nav">
+        <Link to ='/' className="main-nav-logo" >
+          <img
+            className="main-nav-logo-image"
+            src={Logo}
+            alt="Argent Bank Logo"
+          />
+          <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div>
-        <a className="main-nav-item" href="./user.html">
-        <FontAwesomeIcon icon={faCircleUser}/>
-          {firstName}
-        </a>
-        <Link to='/'className="main-nav-item" onClick={()=>{dispatch(editNameActions.clear()); dispatch(logninActions.clear())}}>
-        <FontAwesomeIcon icon={faRightFromBracket} />
-          Sign Out
+        <div>
+          <Link to ='/signin' className="main-nav-item">
+          <FontAwesomeIcon icon={faCircleUser} />
+            Sign In
+          </Link>
+        </div>
+      </nav>
+      :
+      <nav className="main-nav">
+      <Link to ='/' className="main-nav-logo" >
+          <img
+            className="main-nav-logo-image"
+            src={Logo}
+            alt="Argent Bank Logo"
+          />
+          <h1 className="sr-only">Argent Bank</h1>
         </Link>
-      </div>
-    </nav>
-)
-    
+        <div>
+          <a className="main-nav-item" href="./user.html">
+          <FontAwesomeIcon icon={faCircleUser}/>
+            {firstName}
+          </a>
+          <Link to='/'className="main-nav-item" onClick={()=>{dispatch(editNameActions.clear()); dispatch(logninActions.clear())}}>
+          <FontAwesomeIcon icon={faRightFromBracket} />
+            Sign Out
+          </Link>
+        </div>
+      </nav>
+    )
 }
+
 export default Header

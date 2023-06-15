@@ -27,15 +27,11 @@ const getUser = (Token)=>{
   .then(function (response) {
     if(response.status === 200){
       console.log("getUser",response)
-      return response.json()
+      return response.data.body
     }
   })
-  .then(function(data){
-    console.log("data ----",data)
-    return data.body
-  })
   .catch(function (error) {
-    console.log("getUser",error);
+    console.log(error);
   });
 
 
@@ -44,10 +40,8 @@ function SignIn() {
     const dispatch = useDispatch() 
     const navigate = useNavigate()
     const state = useSelector(loginState)
- 
-    const{UserEmail,PassWord,Selected,ErrorMsg,loginStatus,accessToken} = state
-    console.log("loginstate",state)
-  
+    const{UserEmail,PassWord,Selected,ErrorMsg,loginStatus} = state
+
     const handleSubmit = async (e)=>{
     e.preventDefault();
     if (Selected){
@@ -56,18 +50,18 @@ function SignIn() {
     dispatch(logninActions.setAccessToken(accessToken))
        if(accessToken){
           const data = await getUser(accessToken)
-          let firstName = data.firstName
+          console.log("dta",data)
+          if(data){let firstName = data.firstName
           let lastName =data.lastName
           let userId = data.id
           dispatch(logninActions.setUserId(userId))
           dispatch(editNameActions.setFristName(firstName))
           dispatch(editNameActions.setLastName(lastName))
-          navigate(`/user/${userId}`)
+          navigate(`/user/${userId}`)}
        }
        else {dispatch(logninActions.setErrorMsg('Username or Password incorrect'))}
-
     }
-    else dispatch(logninActions.setErrorMsg("please select ' remerber me '") )
+    else dispatch(logninActions.setErrorMsg("please select ' Remerber me '") )
     }
 
     return (
