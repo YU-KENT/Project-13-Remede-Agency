@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 import * as logninActions from '../features/loginReducer'
 
 
@@ -10,41 +11,64 @@ loginPost(UserEmail,PassWord){
     email: UserEmail,
     password: PassWord,
   })
+  /* let body = 
+    JSON.stringify({
+        email: UserEmail,
+        password: PassWord,
+    } )
+
+  return fetch(url, {
+        method:'POST',
+        headers: {
+        "Content-Type": "application/json"
+        },
+        body,
+  }) */
 }
 
 profilePost(accessToken){
   let url = 'http://localhost:3001/api/v1/user/profile'
+ /*  return axios.post(url,{
+    headers:{
+      Authorization : `Bearer ${accessToken}`,
+  }
+}) */
+  let config = {
+    method:'POST',
+    headers: {
+      Authorization : `Bearer ${accessToken}`
+    }
+    }
+
+  return fetch(url,config)
+
+
+}
+profileEditPut(firstName,lastName,accessToken){
+  let url = 'http://localhost:3001/api/v1/user/profile'
   let config = {
     headers: {
-      'Content-type' : 'application/json',
-      'Authorization' : `Bearer ${accessToken}`
+      Authorization : `Bearer ${accessToken}`
     }
     }
-    console.log("config",config)
-  return axios.post(url,{
-    headers: {
-      'Content-type' : 'application/json',
-      'Authorization' : `Bearer ${accessToken}`
-    }
-    })
- /*  .then(function (response) {
-    console.log("---------- ------",response.status);
-    if(response.status === 200){
-      console.log("here")
-      return response ? response.status:null 
-    }
-    else return
+  let body = {
+      firstName: firstName,
+      lastName : lastName,
+
+  }
+  console.log("config",body,config)
+  axios.put(url,body,config,)
+  .then(function (response) {
+    console.log("put---------",response.status)
   })
   .catch(function (error) {
     console.log(error);
-  }); */
+  })
 
 
 }
 
 
-
 }
-
 const services = new service()
 export default services

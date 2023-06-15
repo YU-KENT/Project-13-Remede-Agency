@@ -1,18 +1,27 @@
-import {userNameState} from '../../outils/selector'
+import {loginState, userNameState} from '../../outils/selector'
 import { useDispatch, useSelector  } from 'react-redux'
 import * as editNameActions from '../../features/editNameReducer'
 import { useRef } from 'react'
+import services from '../../API/service'
 
 function Profile (){
     const dispatch = useDispatch() 
     const firstNameRef = useRef(null)
     const lastNameRef = useRef(null)
-    const state = useSelector(userNameState)
-    const {firstName, lastName} = state
-    console.log("userNamestate",state)
+    const NameState = useSelector(userNameState)
+    const state = useSelector(loginState)
+    const {accessToken} = state
+    const {firstName, lastName} = NameState
+    console.log("userNamestate",NameState,state)
+
     const onClear = ()=>{
     firstNameRef.current.value =""
     lastNameRef.current.value =""
+    }
+
+    const editNamePost = (firstName, lastName,accessToken)=>{
+    console.log("editNamePost",firstName, lastName,)
+    services.profileEditPut(firstName, lastName,accessToken)
 
     }
     return(
@@ -31,7 +40,7 @@ function Profile (){
                              )} />
                     </div>
                </div>
-                <button className="edit-button edit-profile-button" onClick={()=>{dispatch(editNameActions.save());onClear()}}>Save</button>
+                <button className="edit-button edit-profile-button" onClick={()=>{dispatch(editNameActions.save());onClear();editNamePost(firstName, lastName,accessToken)}}>Save</button>
                 <button className="edit-button edit-profile-button" onClick={()=>{dispatch(editNameActions.cancle());onClear()}}>Cancle</button>
             </div>
           <h2 className="sr-only">Accounts</h2>

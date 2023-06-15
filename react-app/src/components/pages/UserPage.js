@@ -1,15 +1,20 @@
-import { useParams } from "react-router-dom"
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import {userNameState} from '../../outils/selector'
+import { useSelector  } from 'react-redux'
+
 
 function UserPage(){
-    const firstName = useParams().firstName
-    const profilePath = '/profile/'+firstName
-    console.log(firstName)
+    const {userId} = useParams()
+    const profilePatch = '/profile/'+ userId
+
+    const state = useSelector(userNameState)
+    const{firstName,lastName} = state
+    console.log("firstName",firstName,"lastName",lastName)
     return(
     <main className="main bg-dark">
         <div className="header">
-            <h1>Welcome back<br />Tony Jarvis!</h1>
-            <Link to = {profilePath}>
+            <h1>Welcome back<br />{firstName} {lastName}!</h1>
+            <Link to = {profilePatch}>
             <button className="edit-button" >Edit Name</button>
             </Link>
         </div>

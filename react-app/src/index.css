@@ -119,9 +119,9 @@ body {
   width:200px;
   margin-right: 10px;
 }
-.input-edit::placeholder{
-  color:#f9f8f8;
-  font-size: 10px;
+.input-edit ::placeholder{
+  color:#bcbcbc;
+  font-size: 12px;
 }
 @media (min-width: 920px) {
   .hero {

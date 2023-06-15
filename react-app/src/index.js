@@ -21,8 +21,8 @@ root.render(
         <Routes>
            <Route exact path='/' element= {<Home />} />
            <Route path='/signin' element= {<SignIn/>}  />
-           <Route path='/user/:firstName' element={<UserPage/>} />
-           <Route path='/profile/:firstName' element={<Profile/>}/>
+           <Route path='/user/:userId' element={<UserPage/>} />
+           <Route path='/profile/:userId' element={<Profile/>}/>
       {/*      <Route path="*" element={<Error/>} /> */}
         </Routes>
        <Footer/>

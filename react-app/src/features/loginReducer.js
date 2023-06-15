@@ -24,7 +24,7 @@ reducers :{
     reducer:(state,action)=>{
     console.log("valideUserName",action.payload.value)
     
-         return {...state, UserEmail:action.payload.value}
+         return {...state,ErrorMsg :'', UserEmail:action.payload.value}
       
     /*   else return {...state,ErrorMsg :''} */
   }
@@ -34,17 +34,15 @@ reducers :{
       payload:{value}
     }),
     reducer:(state,action) =>{
-    console.log('validePassWord',action.payload.value)
-   
-        return {...state, PassWord:action.payload.value}
+    return {...state,ErrorMsg :'', PassWord:action.payload.value}
       
       /* else return {...state,ErrorMsg :''} */
   }
   },
   selectCheckBox:(state)=>{
-    return {...state, Selected:!state.Selected}
+    return {...state, ErrorMsg :'', Selected:!state.Selected}
   },
-  getUserId :{
+  setUserId :{
     prepare:(value)=>({
       payload:{value}
     }),  
@@ -58,15 +56,32 @@ reducers :{
   }),  
   reducer:(state,action)=>{
   return{...state,loginStatus:true,accessToken:action.payload.value, }
-}
-},
-  setErrorMsg:(state)=>{
-    return {...state, ErrorMsg:'Please confirm your email and password'}
+ }},
+
+  setErrorMsg:{
+  prepare:(value)=>({
+    payload:{value}
+  }),
+  reducer: (state,action)=>{
+    return {...state, ErrorMsg:action.payload.value}
   }
+  },
+  clear:()=>{
+    return {
+      Selected : false,
+      ErrorMsg :'',
+      UserEmail:'',
+      id:'',
+      PassWord:'',
+      loginStatus:false,
+      accessToken:undefined,
+    }
+  }
+
 }
 
 })
-export const {valideUserEmail,validePassWord,selectCheckBox,setErrorMsg,getUserId,setAccessToken} = actions
+export const {valideUserEmail,validePassWord,selectCheckBox,setErrorMsg,setUserId,setAccessToken,clear} = actions
 export default reducer
 
 

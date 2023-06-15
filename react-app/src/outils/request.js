@@ -1,26 +1,30 @@
+import { useDispatch } from "react-redux";
+import services from "../API/service";
+import * as logninActions from '../../features/loginReducer'
+import * as editNameActions from'../../features/editNameReducer'
+import { useEffect } from "react";
 
-
-export default function request (method,url,body){
-console.log("request",method,url,body)
-method = method.toUpperCase()
-if(method ==='GET'){
-    body = undefined;
-}
-
-return fetch(url,{
-    method:method,
-    body:JSON.stringify(body)
-})
-.then((res)=>{
-    console.log("here",res)
-   if(res.status === 401){console.log("401-------------")
-   }else{
-    const data = res.json()
-    console.log(data)
-    return data
-   }
+function useRequesUser (Token){
    
-})
+    const dispatch = useDispatch()
+    return services.profilePost(Token)
+    .then(function (response) {
+      if(response.status === 200){
+        console.log("getUser",response)
+        const data = response.json()
+        let firstName = data.firstName
+        let lastName =data.lastName
+        let userId = data.id
+        dispatch(logninActions.setUserId(userId))
+        dispatch(editNameActions.setFristName(firstName))
+        dispatch(editNameActions.setLastName(lastName))
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  
 }
-export const get = url => request('GET',url)
-export const post = (url,body) => request('POST',url,body)
+
+
+export default useRequesUser

@@ -1,17 +1,17 @@
 import Logo from'../../asserts/img/argentBankLogo.png'
 import { Link } from 'react-router-dom'
-import {useLocation} from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCircleUser,faRightFromBracket}from'@fortawesome/free-solid-svg-icons'
+import {useDispatch, useSelector  } from 'react-redux'
+import { userNameState} from '../../outils/selector'
+import * as logninActions from '../../features/loginReducer'
+import * as editNameActions from'../../features/editNameReducer'
+
 
 function Header(){
-const { pathname } = useLocation();
-let firstName
-if (pathname.includes('/user') || pathname.includes('/profile')){ 
- firstName = pathname.match('[^/]+(?!.*/)')[0]
-
-}
-else firstName = null
+const NameState = useSelector(userNameState)
+const {firstName} = NameState
+const dispatch = useDispatch()
 
 return (
 !firstName ?
@@ -46,7 +46,7 @@ return (
         <FontAwesomeIcon icon={faCircleUser}/>
           {firstName}
         </a>
-        <Link to='/'className="main-nav-item">
+        <Link to='/'className="main-nav-item" onClick={()=>{dispatch(editNameActions.clear()); dispatch(logninActions.clear())}}>
         <FontAwesomeIcon icon={faRightFromBracket} />
           Sign Out
         </Link>

@@ -11,7 +11,7 @@ initialState :{
 },
 reducers :{
 
-  getFristName :{
+  setFristName :{
     prepare:(value)=>({
       payload:{value}
     }), 
@@ -21,7 +21,7 @@ reducers :{
     }
   },
 
-  getLastName :{
+  setLastName :{
     prepare:(value)=>({
       payload:{value}
     }), 
@@ -48,25 +48,31 @@ reducers :{
    
     return {...state, lastNameInstant:action.payload.value}
 
-  }
-  },
+  }},
+
   save :{
   reducer:(state) =>{
     const{lastNameInstant,firstNameInstant} = state
     let lastName = lastNameInstant
     let firstName = firstNameInstant
     return {...state, lastName, firstName}
-  }
-  },
+  }},
+
   cancle: {
   reducer:(state)=>{
     
     return {...state,lastNameInstant:'',firstNameInstant:''}
+  }},
+  
+  clear : ()=>{
+  return {firstNameInstant:'',
+            lastNameInstant:'',
+            firstName:'',
+            lastName:''}
   }
-
-  }
+  
 }
 
 })
-export const {getFristName,getLastName,editFirstName,editLastName,save,cancle} = actions
+export const {setFristName,setLastName,editFirstName,editLastName,save,cancle,clear} = actions
 export default reducer

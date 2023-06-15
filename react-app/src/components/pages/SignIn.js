@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCircleUser}from'@fortawesome/free-solid-svg-icons'
 import {loginState} from '../../outils/selector'
 import * as logninActions from '../../features/loginReducer'
+import * as editNameActions from'../../features/editNameReducer'
 import services from'../../API/service'
 
 const login = (UserEmail,PassWord,loginStatus) =>{
@@ -22,17 +23,19 @@ const login = (UserEmail,PassWord,loginStatus) =>{
 }
 
 const getUser = (Token)=>{
-  console.log("getUser--------------")
   return services.profilePost(Token)
   .then(function (response) {
-    console.log("avant 200")
     if(response.status === 200){
       console.log("getUser",response)
-      return response.data
+      return response.json()
     }
   })
+  .then(function(data){
+    console.log("data ----",data)
+    return data.body
+  })
   .catch(function (error) {
-    console.log(error);
+    console.log("getUser",error);
   });
 
 
@@ -43,7 +46,7 @@ function SignIn() {
     const state = useSelector(loginState)
  
     const{UserEmail,PassWord,Selected,ErrorMsg,loginStatus,accessToken} = state
-    console.log("state",state)
+    console.log("loginstate",state)
   
     const handleSubmit = async (e)=>{
     e.preventDefault();
@@ -51,10 +54,20 @@ function SignIn() {
     const accessToken = await login(UserEmail,PassWord,loginStatus)
     console.log("uu____accessToken",accessToken)
     dispatch(logninActions.setAccessToken(accessToken))
-    const data = await getUser(accessToken)
-    console.log(data)
+       if(accessToken){
+          const data = await getUser(accessToken)
+          let firstName = data.firstName
+          let lastName =data.lastName
+          let userId = data.id
+          dispatch(logninActions.setUserId(userId))
+          dispatch(editNameActions.setFristName(firstName))
+          dispatch(editNameActions.setLastName(lastName))
+          navigate(`/user/${userId}`)
+       }
+       else {dispatch(logninActions.setErrorMsg('Username or Password incorrect'))}
+
     }
-    else dispatch(logninActions.setErrorMsg() )
+    else dispatch(logninActions.setErrorMsg("please select ' remerber me '") )
     }
 
     return (
