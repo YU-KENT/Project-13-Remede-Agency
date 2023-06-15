@@ -1,74 +1,47 @@
 import axios from 'axios'
 
-import * as logninActions from '../features/loginReducer'
-
-
 class service  {
  
-loginPost(UserEmail,PassWord){
-  let url = 'http://localhost:3001/api/v1/user/login'
-  return axios.post(url, {
-    email: UserEmail,
-    password: PassWord,
-  })
-  /* let body = 
-    JSON.stringify({
+  loginPost(UserEmail,PassWord){
+      let url = 'http://localhost:3001/api/v1/user/login'
+      return axios.post(url, {
         email: UserEmail,
         password: PassWord,
-    } )
+      })
+  }
 
-  return fetch(url, {
-        method:'POST',
+  profilePost(accessToken){
+      let url = 'http://localhost:3001/api/v1/user/profile'
+      let config = {
         headers: {
-        "Content-Type": "application/json"
-        },
-        body,
-  }) */
-}
+          Authorization : `Bearer ${accessToken}`
+        }}
 
-profilePost(accessToken){
-  let url = 'http://localhost:3001/api/v1/user/profile'
- /*  return axios.post(url,{
-    headers:{
-      Authorization : `Bearer ${accessToken}`,
-  }
-}) */
-  let config = {
-    method:'POST',
-    headers: {
-      Authorization : `Bearer ${accessToken}`
-    }
-    }
-
-  return fetch(url,config)
-
-
-}
-profileEditPut(firstName,lastName,accessToken){
-  let url = 'http://localhost:3001/api/v1/user/profile'
-  let config = {
-    headers: {
-      Authorization : `Bearer ${accessToken}`
-    }
-    }
-  let body = {
-      firstName: firstName,
-      lastName : lastName,
+      return axios.post(url,{},config)
 
   }
-  console.log("config",body,config)
-  axios.put(url,body,config,)
-  .then(function (response) {
-    console.log("put---------",response.status)
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
 
+  profileEditPut(firstName,lastName,accessToken){
+      let url = 'http://localhost:3001/api/v1/user/profile'
+      let config = {
+        headers: {
+          Authorization : `Bearer ${accessToken}`
+        }}
 
+      let body = {
+          firstName: firstName,
+          lastName : lastName,
+      }
+      
+      axios.put(url,body,config,)
+      .then(function (response) {
+        console.log("put---------",response.status)
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }
 }
 
-
-}
 const services = new service()
 export default services
