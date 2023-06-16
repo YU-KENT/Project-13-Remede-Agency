@@ -2,7 +2,7 @@ import axios from 'axios'
 
 class service  {
  
-  loginPost(UserEmail,PassWord){
+  login(UserEmail,PassWord){
       let url = 'http://localhost:3001/api/v1/user/login'
       return axios.post(url, {
         email: UserEmail,
@@ -10,7 +10,7 @@ class service  {
       })
   }
 
-  profilePost(accessToken){
+  getProfile(accessToken){
       let url = 'http://localhost:3001/api/v1/user/profile'
       let config = {
         headers: {
@@ -18,10 +18,9 @@ class service  {
         }}
 
       return axios.post(url,{},config)
-
   }
 
-  profileEditPut(firstName,lastName,accessToken){
+  editProfile(firstName,lastName,accessToken){
       let url = 'http://localhost:3001/api/v1/user/profile'
       let config = {
         headers: {
@@ -32,14 +31,9 @@ class service  {
           firstName: firstName,
           lastName : lastName,
       }
-      
-      axios.put(url,body,config,)
-      .then(function (response) {
-        console.log("put---------",response.status)
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
+      console.log(body)
+      return axios.put(url,body,config)
+     
   }
 }
 

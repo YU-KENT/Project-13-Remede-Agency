@@ -1,30 +1,45 @@
-import { useDispatch } from "react-redux";
-import services from "../API/service";
-import * as logninActions from '../../features/loginReducer'
-import * as editNameActions from'../../features/editNameReducer'
-import { useEffect } from "react";
 
-function useRequesUser (Token){
-   
-    const dispatch = useDispatch()
-    return services.profilePost(Token)
+import services from "../API/service";
+
+
+export function RequestLogin(UserEmail,PassWord,loginStatus){
+    if(!loginStatus){
+    return services.login(UserEmail,PassWord)
     .then(function (response) {
       if(response.status === 200){
-        console.log("getUser",response)
-        const data = response.json()
-        let firstName = data.firstName
-        let lastName =data.lastName
-        let userId = data.id
-        dispatch(logninActions.setUserId(userId))
-        dispatch(editNameActions.setFristName(firstName))
-        dispatch(editNameActions.setLastName(lastName))
+        return response.data.body.token
       }
     })
     .catch(function (error) {
       console.log(error);
     });
-  
+    
+  }  else return
+  }
+
+export function RequestGetProfile (Token){
+    return services.getProfile(Token)
+    .then(function (response) {
+        if(response.status === 200){
+            console.log("getUser",response)
+            return response.data.body
+          }
+        })
+    .catch(function (error) {
+          console.log(error);
+        });
+      
 }
 
+export function RequestUserNamePut(firstName, lastName,accessToken){
+     return services.editProfile(firstName, lastName,accessToken)
+     .then(function (response) {
+        console.log("put---------",response.status)
+      })
+      .catch(function (error) {
+        console.log(error);
+      }) 
+    
 
-export default useRequesUser
+}
+

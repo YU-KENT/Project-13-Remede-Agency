@@ -5,37 +5,10 @@ import {faCircleUser}from'@fortawesome/free-solid-svg-icons'
 import {loginState} from '../../outils/selector'
 import * as logninActions from '../../features/loginReducer'
 import * as editNameActions from'../../features/editNameReducer'
-import services from'../../API/service'
-
-const login = (UserEmail,PassWord,loginStatus) =>{
-  if(!loginStatus){
-  return services.loginPost(UserEmail,PassWord)
-  .then(function (response) {
-    if(response.status === 200){
-      return /* encodeURIComponent( */response.data.body.token
-    }
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-  
-}  else return
-}
-
-const getUser = (Token)=>{
-  return services.profilePost(Token)
-  .then(function (response) {
-    if(response.status === 200){
-      console.log("getUser",response)
-      return response.data.body
-    }
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+import { RequestLogin,RequestGetProfile } from '../../outils/request'
 
 
-}
+
 function SignIn() {
     const dispatch = useDispatch() 
     const navigate = useNavigate()
@@ -45,11 +18,11 @@ function SignIn() {
     const handleSubmit = async (e)=>{
     e.preventDefault();
     if (Selected){
-    const accessToken = await login(UserEmail,PassWord,loginStatus)
-    console.log("uu____accessToken",accessToken)
-    dispatch(logninActions.setAccessToken(accessToken))
+      const accessToken = await RequestLogin(UserEmail,PassWord,loginStatus)
+      console.log("uu____accessToken",accessToken)
+      dispatch(logninActions.setAccessToken(accessToken))
        if(accessToken){
-          const data = await getUser(accessToken)
+          const data = await RequestGetProfile(accessToken)
           console.log("dta",data)
           if(data){let firstName = data.firstName
           let lastName =data.lastName
