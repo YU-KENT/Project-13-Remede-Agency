@@ -1,5 +1,6 @@
 
 import {  createSlice} from '@reduxjs/toolkit'
+import {RequestUserNamePut} from '../outils/request'
 
 const{actions, reducer} = createSlice({
 name:'editName',
@@ -64,10 +65,18 @@ reducers :{
             lastNameInstant:'',
             firstName:'',
             lastName:''}
-  }
+  },
+  requestPut :{
+    prepare:(value)=>({
+      payload:{value}
+    }),
+    reducer:(state,action) =>{
+      RequestUserNamePut(state.firstName,state.lastName,action.payload.value)
+    
+  }},
   
 }
 
 })
-export const {setFristName,setLastName,editFirstName,editLastName,save,cancle,clear} = actions
+export const {setFristName,setLastName,editFirstName,editLastName,save,cancle,clear,requestPut} = actions
 export default reducer

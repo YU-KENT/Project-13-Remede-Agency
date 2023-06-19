@@ -13,29 +13,29 @@ function SignIn() {
     const dispatch = useDispatch() 
     const navigate = useNavigate()
     const state = useSelector(loginState)
-    const{UserEmail,PassWord,Selected,ErrorMsg,loginStatus} = state
+    const{UserEmail,PassWord,Selected,ErrorMsg} = state
 
     const handleSubmit = async (e)=>{
-    e.preventDefault();
-    if (Selected){
-      const accessToken = await RequestLogin(UserEmail,PassWord,loginStatus)
-      console.log("uu____accessToken",accessToken)
-      dispatch(logninActions.setAccessToken(accessToken))
-       if(accessToken){
-          const data = await RequestGetProfile(accessToken)
-          console.log("dta",data)
-          if(data){let firstName = data.firstName
-          let lastName =data.lastName
-          let userId = data.id
-          dispatch(logninActions.setUserId(userId))
-          dispatch(editNameActions.setFristName(firstName))
-          dispatch(editNameActions.setLastName(lastName))
-          navigate(`/user/${userId}`)}
-       }
-       else {dispatch(logninActions.setErrorMsg('Username or Password incorrect'))}
-    }
-    else dispatch(logninActions.setErrorMsg("please select ' Remerber me '") )
-    }
+        e.preventDefault();
+        if (Selected){
+          const accessToken = await RequestLogin(UserEmail,PassWord)
+          console.log("uu____accessToken",accessToken)
+          dispatch(logninActions.setAccessToken(accessToken))
+          if(accessToken){
+              const data = await RequestGetProfile(accessToken)
+              console.log("dta",data)
+              if(data){let firstName = data.firstName
+              let lastName =data.lastName
+              let userId = data.id
+              dispatch(logninActions.setUserId(userId))
+              dispatch(editNameActions.setFristName(firstName))
+              dispatch(editNameActions.setLastName(lastName))
+              navigate(`/user/${userId}`)}
+          }
+          else {dispatch(logninActions.setErrorMsg('Username or Password incorrect'))}
+        }
+        else dispatch(logninActions.setErrorMsg("please select ' Remerber me '") )
+        }
 
     return (
       <main className="main bg-dark">
@@ -46,13 +46,13 @@ function SignIn() {
           <div className="input-wrapper">
             <label htmlFor='username' >Username</label>
             <input type="text" id="username" onChange={(e)=> dispatch(
-              logninActions.valideUserEmail(e.target.value)
+              logninActions.UserEmail(e.target.value)
             )} />
           </div>
           <div className="input-wrapper">
             <label htmlFor='password' >Password</label>
             <input type="password" id="password" onChange={(e)=> dispatch(
-              logninActions.validePassWord(e.target.value)
+              logninActions.PassWord(e.target.value)
             )} />
           </div>
           <div className="input-remember">

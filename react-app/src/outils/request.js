@@ -2,8 +2,8 @@
 import services from "../API/service";
 
 
-export function RequestLogin(UserEmail,PassWord,loginStatus){
-    if(!loginStatus){
+export function RequestLogin(UserEmail,PassWord,login){
+    if(!login){
     return services.login(UserEmail,PassWord)
     .then(function (response) {
       if(response.status === 200){

@@ -13,7 +13,7 @@ function Profile (){
     const state = useSelector(loginState)
     const {accessToken} = state
     const {firstName, lastName} = NameState
-    console.log("userNamestate",NameState,state)
+    console.log("userNamestate",NameState)
 
     const onClear = ()=>{
 
@@ -39,11 +39,11 @@ function Profile (){
                              )} />
                     </div>
                </div>
-                <button className="edit-button edit-profile-button" onClick={()=>{dispatch(editNameActions.save());onClear();
-                setTimeout(()=>{
-                  console.log("NameState.firstName",NameState.firstName,NameState.lastName)
-                RequestUserNamePut(NameState.firstName,NameState.lastName,accessToken)
-                },'10000')
+                <button className="edit-button edit-profile-button" onClick={()=>{
+                   dispatch(editNameActions.save());
+                   dispatch(editNameActions.requestPut(accessToken));
+                   onClear()
+
                 }}>Save</button>
                 <button className="edit-button edit-profile-button" onClick={()=>{dispatch(editNameActions.cancle());onClear()}}>Cancle</button>
             </div>
