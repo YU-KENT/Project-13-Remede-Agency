@@ -8,7 +8,6 @@ import * as editNameActions from'../../features/editNameReducer'
 import { RequestLogin,RequestGetProfile } from '../../outils/request'
 
 
-
 function SignIn() {
     const dispatch = useDispatch() 
     const navigate = useNavigate()
@@ -31,11 +30,9 @@ function SignIn() {
               dispatch(editNameActions.setFristName(firstName))
               dispatch(editNameActions.setLastName(lastName))
               navigate(`/user/${userId}`)}
-          }
-          else {dispatch(logninActions.setErrorMsg('Username or Password incorrect'))}
-        }
-        else dispatch(logninActions.setErrorMsg("please select ' Remerber me '") )
-        }
+           }else {dispatch(logninActions.setErrorMsg('Username or Password incorrect'))}
+        }else dispatch(logninActions.setErrorMsg("please select ' Remerber me '") )
+      }
 
     return (
       <main className="main bg-dark">

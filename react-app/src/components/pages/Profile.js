@@ -2,7 +2,6 @@ import {loginState, userNameState} from '../../outils/selector'
 import { useDispatch, useSelector  } from 'react-redux'
 import * as editNameActions from '../../features/editNameReducer'
 import {useRef } from 'react'
-import {RequestUserNamePut} from '../../outils/request'
 
 
 function Profile (){
@@ -16,13 +15,10 @@ function Profile (){
     console.log("userNamestate",NameState)
 
     const onClear = ()=>{
-
     firstNameRef.current.value =""
     lastNameRef.current.value =""
-    }
+                        }
     
-    
-   
     return(
         <main className="main bg-gris">
             <div className="header">

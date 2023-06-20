@@ -74,9 +74,8 @@ reducers :{
       RequestUserNamePut(state.firstName,state.lastName,action.payload.value)
     
   }},
-  
 }
-
 })
+
 export const {setFristName,setLastName,editFirstName,editLastName,save,cancle,clear,requestPut} = actions
 export default reducer
