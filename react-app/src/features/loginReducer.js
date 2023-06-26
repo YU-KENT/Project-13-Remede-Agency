@@ -9,6 +9,8 @@ initialState :{
       UserEmail:'',
       id:'',
       PassWord:'',
+      ValideEmail: false,
+      VaidePassword: false,
       accessToken:undefined,
       
 },
@@ -18,7 +20,13 @@ reducers :{
         payload:{value}
       }),  
       reducer:(state,action)=>{
-          return {...state,ErrorMsg :'', UserEmail:action.payload.value} 
+          const regexEmail= /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+          const email= action.payload.value
+          if(!regexEmail.test(email) ){
+            console.log("email 没有通过",/* email.trim() === "", */!regexEmail.test(email),)
+            return{...state,ErrorMsg :'',UserEmail:email}
+          }
+          else return {...state,ErrorMsg :'', UserEmail:email, ValideEmail :true} 
     }
   },
 
@@ -27,12 +35,17 @@ reducers :{
         payload:{value}
       }),
       reducer:(state,action) =>{
-        console.log("validePassWord",action.payload.value)
-        return {...state,ErrorMsg :'', PassWord:action.payload.value}
+        const password = action.payload.value
+        console.log("validePassWord",password )
+        if(password.trim() === ""){
+          console.log("password 没有通过",(password.trim() === ""))
+          return{...state,PassWord:password}
+        }
+        else return {...state,ErrorMsg :'', PassWord:password,VaidePassword:true}
           
     }
   },
-
+  
   selectCheckBox:(state)=>{
       return {...state, ErrorMsg :'', Selected:!state.Selected}
   },

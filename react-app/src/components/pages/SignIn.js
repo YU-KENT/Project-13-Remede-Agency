@@ -12,11 +12,12 @@ function SignIn() {
     const dispatch = useDispatch() 
     const navigate = useNavigate()
     const state = useSelector(loginState)
-    const{UserEmail,PassWord,Selected,ErrorMsg} = state
-
+    const{UserEmail,PassWord,ValideEmail,VaidePassword,ErrorMsg} = state
+    console.log("state",state)
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        if (Selected){
+        
+        if (VaidePassword && ValideEmail ){
           const accessToken = await RequestLogin(UserEmail,PassWord)
           console.log("uu____accessToken",accessToken)
           dispatch(logninActions.setAccessToken(accessToken))
@@ -31,7 +32,7 @@ function SignIn() {
               dispatch(editNameActions.setLastName(lastName))
               navigate(`/user/${userId}`)}
            }else {dispatch(logninActions.setErrorMsg('Username or Password incorrect'))}
-        }else dispatch(logninActions.setErrorMsg("please select ' Remerber me '") )
+        }else dispatch(logninActions.setErrorMsg('Please enter your email and password') )
       }
 
     return (
