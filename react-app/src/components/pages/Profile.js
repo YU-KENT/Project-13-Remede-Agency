@@ -2,7 +2,7 @@ import {loginState, userNameState} from '../../outils/selector'
 import { useDispatch, useSelector  } from 'react-redux'
 import * as editNameActions from '../../features/editNameReducer'
 import {useRef } from 'react'
-
+import Account from '../containers/Account'
 
 function Profile (){
     const dispatch = useDispatch() 
@@ -43,37 +43,10 @@ function Profile (){
                 }}>Save</button>
                 <button className="edit-button edit-profile-button" onClick={()=>{dispatch(editNameActions.cancle());onClear()}}>Cancle</button>
             </div>
-          <h2 className="sr-only">Accounts</h2>
-          <section className="account">
-            <div className="account-content-wrapper">
-              <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-              <p className="account-amount">$2,082.79</p>
-              <p className="account-amount-description">Available Balance</p>
-            </div>
-            <div className="account-content-wrapper cta">
-              <button className="transaction-button button-profile">View transactions</button>
-            </div>
-          </section>
-          <section className="account">
-            <div className="account-content-wrapper">
-              <h3 className="account-title">Argent Bank Savings (x6712)</h3>
-              <p className="account-amount">$10,928.42</p>
-              <p className="account-amount-description">Available Balance</p>
-            </div>
-            <div className="account-content-wrapper cta">
-              <button className="transaction-button button-profile">View transactions</button>
-            </div>
-          </section>
-          <section className="account">
-            <div className="account-content-wrapper">
-              <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
-              <p className="account-amount">$184.30</p>
-              <p className="account-amount-description">Current Balance</p>
-            </div>
-            <div className="account-content-wrapper cta">
-              <button className="transaction-button button-profile">View transactions</button>
-            </div>
-          </section>
+            <h2 className="sr-only">Accounts</h2>
+            <Account title='Checking' amount='2,082.79' nombre = {8349} btnClassName='transaction-button button-profile' />
+            <Account title='Savings' amount='10,928.42' nombre = {6712} btnClassName='transaction-button button-profile'/>
+            <Account title='Credit Card' amount='184.30' nombre = {8349} btnClassName='transaction-button button-profile'/>
         </main>
         )
 

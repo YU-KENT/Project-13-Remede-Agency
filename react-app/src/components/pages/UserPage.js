@@ -1,12 +1,12 @@
 import { Link, useParams } from 'react-router-dom'
 import {userNameState} from '../../outils/selector'
 import { useSelector  } from 'react-redux'
+import Account from '../containers/Account'
 
 
 function UserPage(){
     const {userId} = useParams()
     const profilePatch = '/profile/'+ userId
-
     const state = useSelector(userNameState)
     const{firstName,lastName} = state
     console.log("userNameState------",state)
@@ -18,37 +18,10 @@ function UserPage(){
             <button className="edit-button" >Edit Name</button>
             </Link>
         </div>
-      <h2 className="sr-only">Accounts</h2>
-      <section className="account">
-        <div className="account-content-wrapper">
-          <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-          <p className="account-amount">$2,082.79</p>
-          <p className="account-amount-description">Available Balance</p>
-        </div>
-        <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
-        </div>
-      </section>
-      <section className="account">
-        <div className="account-content-wrapper">
-          <h3 className="account-title">Argent Bank Savings (x6712)</h3>
-          <p className="account-amount">$10,928.42</p>
-          <p className="account-amount-description">Available Balance</p>
-        </div>
-        <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
-        </div>
-      </section>
-      <section className="account">
-        <div className="account-content-wrapper">
-          <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
-          <p className="account-amount">$184.30</p>
-          <p className="account-amount-description">Current Balance</p>
-        </div>
-        <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
-        </div>
-      </section>
+        <h2 className="sr-only">Accounts</h2>
+        <Account title='Checking' amount='2,082.79' nombre = {8349} btnClassName='transaction-button' />
+        <Account title='Savings' amount='10,928.42' nombre = {6712} btnClassName='transaction-button'/>
+        <Account title='Credit Card' amount='184.30' nombre = {8349} btnClassName='transaction-button'/>
     </main>
     )
 }
