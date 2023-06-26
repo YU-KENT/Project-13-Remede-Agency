@@ -70,3 +70,11 @@ Static HTML and CSS has been created for most of the site and is located in: `/d
 For some of the dynamic features, like toggling user editing, there is a mock-up for it in `/designs/wireframes/edit-user-name.png`.
 
 And for the API model that you will be proposing for transactitons, the wireframe can be found in `/designs/wireframes/transactions.png`.
+
+## App react find in document 'react-app'
+run in terminal react-app , then start react
+# start react
+npm start
+## route run in 
+home page: http://localhost:3000/
+signin page: http://localhost:3000/signin
