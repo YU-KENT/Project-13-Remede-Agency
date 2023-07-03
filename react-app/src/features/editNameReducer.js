@@ -1,3 +1,4 @@
+// editName reducer manage modification of name
 
 import {  createSlice} from '@reduxjs/toolkit'
 import {RequestUserNamePut} from '../outils/request'

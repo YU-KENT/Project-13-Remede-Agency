@@ -25,23 +25,25 @@ function Profile (){
                 <h1 className='profile-title'>Welcome back</h1>
                 <div className='form-editName'>
                     <div className="input-wrapper input-edit">
-                        <input type="text" ref={firstNameRef} id="firstName" placeholder= {firstName} onChange={(e)=> dispatch(
-                        editNameActions.editFirstName(e.target.value)
-                        )} />
+                        <input type="text" ref={firstNameRef} id="firstName" placeholder= {firstName} 
+                        onChange={(e)=> dispatch(editNameActions.editFirstName(e.target.value))} 
+                        />
                   </div>
                     <div className="input-wrapper input-edit">
-                            <input type="text" ref={lastNameRef} id="lastName" placeholder= {lastName} onChange={(e)=> dispatch(
-                            editNameActions.editLastName(e.target.value)
-                             )} />
+                        <input type="text" ref={lastNameRef} id="lastName" placeholder= {lastName} 
+                        onChange={(e)=> dispatch(editNameActions.editLastName(e.target.value))} 
+                        />
                     </div>
                </div>
                 <button className="edit-button edit-profile-button" onClick={()=>{
                    dispatch(editNameActions.save());
                    dispatch(editNameActions.requestPut(accessToken));
-                   onClear()
-
-                }}>Save</button>
-                <button className="edit-button edit-profile-button" onClick={()=>{dispatch(editNameActions.cancle());onClear()}}>Cancle</button>
+                   onClear()}}
+                >Save</button>
+                <button className="edit-button edit-profile-button" onClick={()=>{
+                    dispatch(editNameActions.cancle());
+                    onClear()}}
+                >Cancle</button>
             </div>
             <h2 className="sr-only">Accounts</h2>
             <Account title='Checking' amount='2,082.79' nombre = {8349} btnClassName='transaction-button button-profile' />

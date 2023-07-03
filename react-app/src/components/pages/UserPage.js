@@ -9,7 +9,7 @@ function UserPage(){
     const profilePatch = '/profile/'+ userId
     const state = useSelector(userNameState)
     const{firstName,lastName} = state
-    console.log("userNameState------",state)
+    
     return(
     <main className="main bg-dark">
         <div className="header">

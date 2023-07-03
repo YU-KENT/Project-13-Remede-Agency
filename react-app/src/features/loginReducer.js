@@ -1,3 +1,6 @@
+//login reducer manage login state that has : 
+//ErrorMsg, UserEmail, id, PassWord, boolean ValideEmail,boolean VaidePassword, accessToken,
+
 import { createSlice} from '@reduxjs/toolkit'
 
 const{actions, reducer} = createSlice({
@@ -23,7 +26,6 @@ reducers :{
           const regexEmail= /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
           const email= action.payload.value
           if(!regexEmail.test(email) ){
-            console.log("email 没有通过",/* email.trim() === "", */!regexEmail.test(email),)
             return{...state,ErrorMsg :'',UserEmail:email}
           }
           else return {...state,ErrorMsg :'', UserEmail:email, ValideEmail :true} 
@@ -36,9 +38,7 @@ reducers :{
       }),
       reducer:(state,action) =>{
         const password = action.payload.value
-        console.log("validePassWord",password )
         if(password.trim() === ""){
-          console.log("password 没有通过",(password.trim() === ""))
           return{...state,PassWord:password}
         }
         else return {...state,ErrorMsg :'', PassWord:password,VaidePassword:true}
