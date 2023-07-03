@@ -26,7 +26,7 @@ reducers :{
           const regexEmail= /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
           const email= action.payload.value
           if(!regexEmail.test(email) ){
-            return{...state,ErrorMsg :'',UserEmail:email}
+            return{...state,ErrorMsg :'',UserEmail:email,ValideEmail :false}
           }
           else return {...state,ErrorMsg :'', UserEmail:email, ValideEmail :true} 
     }
@@ -39,7 +39,7 @@ reducers :{
       reducer:(state,action) =>{
         const password = action.payload.value
         if(password.trim() === ""){
-          return{...state,PassWord:password}
+          return{...state,ErrorMsg :'',PassWord:password,VaidePassword:false}
         }
         else return {...state,ErrorMsg :'', PassWord:password,VaidePassword:true}
           
