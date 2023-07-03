@@ -163,7 +163,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Transaction'
+              $ref: '#/components/schemas/transaction'
         required: true
       responses:
         200:
@@ -200,7 +200,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionDetail'
+                $ref: '#/components/schemas/transactionDetail'
         400:
           description: Request failed
           content: {}
@@ -210,7 +210,7 @@ paths:
         500:
           description: Internal Server Error
           content: {}
-    patch:
+    put:
       tags:
       - User Transaction Module
       summary: Update a transaction
@@ -231,7 +231,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TransactionDetail'
+              $ref: '#/components/schemas/transactionDetail'
         required: true
       responses:
         200:
@@ -359,12 +359,12 @@ components:
                    type: number
                 balance:
                    type: number
-    Transaction:
+    transaction:
       type: object
       properties:
-        TransactionId:
+        transactionId:
           type: string
-        TransactionDetail:
+        transactionDetail:
           type: object
           properties:
             date: 
@@ -381,7 +381,7 @@ components:
               type: number
             balance:
               type: number
-    TransactionDetail:
+    transactionDetail:
       type: object
       properties:
         date: 
