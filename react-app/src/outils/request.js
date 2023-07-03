@@ -2,8 +2,8 @@
 import services from "../API/service";
 
 
-export function RequestLogin(UserEmail,PassWord,login){
-    if(!login){
+export function RequestLogin(UserEmail,PassWord){
+    
     return services.login(UserEmail,PassWord)
     .then(function (response) {
       if(response.status === 200){
@@ -14,7 +14,6 @@ export function RequestLogin(UserEmail,PassWord,login){
       console.log(error);
     });
     
-  }  else return
   }
 
 export function RequestGetProfile (Token){

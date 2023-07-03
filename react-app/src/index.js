@@ -23,7 +23,6 @@ root.render(
            <Route path='/signin' element= {<SignIn/>}  />
            <Route path='/user/:userId' element={<UserPage/>} />
            <Route path='/profile/:userId' element={<Profile/>}/>
-      {/*      <Route path="*" element={<Error/>} /> */}
         </Routes>
        <Footer/>
     </Router>
